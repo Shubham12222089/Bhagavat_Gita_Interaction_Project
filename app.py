@@ -1,9 +1,6 @@
+
 import streamlit as st
 import pandas as pd
-from gtts import gTTS
-import pyttsx3
-import os
-from playsound import playsound
 
 # Load data function
 @st.cache_data
@@ -11,16 +8,6 @@ def load_data():
     df = pd.read_excel('bhagavad_geeta.xlsx')  # Ensure correct file path and spelling
     return df
 
-
-def play_audio(text):
-    try:
-        tts = gTTS(text=text, lang='hi')
-        audio_file = "temp_explanation.mp3"
-        tts.save(audio_file)
-        playsound(audio_file)
-        os.remove(audio_file)
-    except Exception as e:
-        st.error(f"Error playing audio: {e}")
 # Load the data
 df = load_data()
 
@@ -41,11 +28,6 @@ st.write("**Hindi Anuvad**")
 st.write(verse_data['Hindi Anuvad'])
 st.write("**English Translation**")
 st.write(verse_data['Enlgish Translation'])
-
-# Explanation button with audio
-# if st.button("Play Explanation in Hindi"):
-#     play_audio(verse_data['Hindi Anuvad'])
-#     st.success("Playing audio...")
 
 # Bookmark feature
 if 'bookmarked_verses' not in st.session_state:
@@ -72,4 +54,3 @@ st.sidebar.write("**Hindi Anuvad**")
 st.sidebar.write(daily_verse['Hindi Anuvad'])
 st.sidebar.write("**English Translation**")
 st.sidebar.write(daily_verse['Enlgish Translation'])
-
